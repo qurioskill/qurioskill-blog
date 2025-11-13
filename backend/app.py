@@ -34,7 +34,7 @@ else:
         ]
     )
 
-CORS(app, resources={r"/api/*": {"origins": _cors_origins}})
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 POSTS_DIR = Path(__file__).resolve().parent / "posts"
 
