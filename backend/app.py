@@ -3,10 +3,9 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 import os
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Set
 
 from flask import Flask, abort, jsonify, request, send_from_directory
-from flask_cors import CORS
 
 app = Flask(
     __name__,
@@ -14,46 +13,44 @@ app = Flask(
     static_url_path="/",
 )
 
+def _normalize_origin(value: str) -> str:
+    return value.strip().rstrip("/").lower()
+
+
 _allowed_origins_env = os.environ.get("BLOG_ALLOWED_ORIGINS", "*")
 if _allowed_origins_env.strip() == "*":
     _cors_origins = "*"
-    _allowed_origin_set: Optional[set[str]] = None
+    _allowed_origin_set: Optional[Set[str]] = None
 else:
     normalized_origins = {
-        origin.strip().rstrip("/")
+        _normalize_origin(origin)
         for origin in _allowed_origins_env.split(",")
         if origin.strip()
     }
     normalized_origins.update(
         {
-            "http://localhost:5173",
-            "http://127.0.0.1:5173",
-            "http://localhost:3000",
-            "http://127.0.0.1:3000",
+            _normalize_origin("http://localhost:5173"),
+            _normalize_origin("http://127.0.0.1:5173"),
+            _normalize_origin("http://localhost:3000"),
+            _normalize_origin("http://127.0.0.1:3000"),
         }
     )
     _allowed_origin_set = normalized_origins
     _cors_origins = list(normalized_origins)
-
-CORS(
-    app,
-    resources={r"/api/*": {"origins": _cors_origins}},
-)
-
 
 def _origin_allowed(origin: Optional[str]) -> bool:
     if _cors_origins == "*":
         return True
     if not origin or not _allowed_origin_set:
         return False
-    return origin.rstrip("/") in _allowed_origin_set
+    return _normalize_origin(origin) in _allowed_origin_set
 
 
 def _origin_header_value(origin: Optional[str]) -> str:
     if _cors_origins == "*":
-        return "*" if not origin else origin.rstrip("/")
+        return "*" if not origin else _normalize_origin(origin)
     assert origin is not None
-    return origin.rstrip("/")
+    return _normalize_origin(origin)
 
 
 @app.after_request

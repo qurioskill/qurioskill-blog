@@ -28,10 +28,10 @@ The API is now available at `http://127.0.0.1:5000/api/posts` and `/api/tags`. W
 ```bash
 cd frontend
 npm install
-npm run dev
+npm run dev  # uses the proxy set up in vite.config.js
 ```
 
-The Vite dev server proxies `/api/*` requests to Flask (see `vite.config.js`), so both services can run together with hot reloading.
+The Vite dev server proxies `/api/*` requests to Flask (see `vite.config.js`), so both services can run together with hot reloading. In production the React bundle now calls the API via same-origin paths (`/api/...`). Only set `VITE_API_BASE_URL` if you need to point the frontend elsewhere; locally it still defaults to `http://127.0.0.1:5000`.
 
 ## Production build
 
