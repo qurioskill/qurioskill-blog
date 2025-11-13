@@ -35,7 +35,10 @@ body {
   flex: 0 0 240px;
 }
 
-.sidebar .about-card {
+.sidebar-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   position: sticky;
   top: 2rem;
 }
@@ -107,6 +110,162 @@ body {
   gap: 0.75rem;
 }
 
+.workshop-card {
+  border: 1px solid #d8d2c4;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  background: #fdfaf4;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.workshop-card h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.workshop-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.workshop-list li {
+  border-top: 1px solid #eadfcd;
+  padding-top: 0.75rem;
+}
+
+.workshop-list li:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.workshop-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #2b2621;
+  gap: 0.5rem;
+}
+
+.price-badge {
+  border-radius: 999px;
+  padding: 0.1rem 0.65rem;
+  font-size: 0.75rem;
+  border: 1px solid #c7c0b1;
+  color: #514a3f;
+  background: #fff;
+  white-space: nowrap;
+}
+
+.price-badge.large {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.85rem;
+}
+
+.more-info {
+  font-weight: 600;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 15, 10, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fffefb;
+  border-radius: 1.25rem;
+  border: 1px solid #d8d2c4;
+  padding: 2rem;
+  width: min(520px, 90vw);
+  position: relative;
+  box-shadow: 0 15px 45px rgba(17, 10, 5, 0.2);
+}
+
+.modal h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.5rem;
+}
+
+.modal p {
+  margin: 0 0 0.85rem;
+  color: #4d473f;
+  line-height: 1.5;
+}
+
+.modal-price {
+  margin-bottom: 0.5rem;
+}
+
+.modal-eyebrow {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  color: #8a8273;
+  margin: 0 0 0.4rem;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.9rem;
+  border: none;
+  background: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #5a5144;
+}
+
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.2rem;
+}
+
+.button-link {
+  background: #1f4b99;
+  color: #fffdf7;
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-link:hover {
+  background: #163b7c;
+}
+
+.ghost-button {
+  border: 1px solid #c7c0b1;
+  border-radius: 999px;
+  padding: 0.6rem 1.2rem;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  color: #2b2621;
+}
+
+.ghost-button:hover {
+  border-color: #1f4b99;
+  color: #1f4b99;
+}
 .about-card h2 {
   margin: 0;
   font-size: 1.3rem;
@@ -278,7 +437,7 @@ body {
     flex: none;
   }
 
-  .sidebar .about-card {
+  .sidebar-stack {
     position: static;
   }
 }

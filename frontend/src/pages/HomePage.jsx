@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import PostCard from "../components/PostCard.jsx";
 import TagFilter from "../components/TagFilter.jsx";
 import AboutCard from "../components/AboutCard.jsx";
+import WorkshopCard from "../components/WorkshopCard.jsx";
+import { WORKSHOPS } from "../data/workshops.js";
 import { API_BASE } from "../config.js";
 
 export default function HomePage() {
@@ -69,51 +71,54 @@ export default function HomePage() {
   return (
     <div className="page page-with-sidebar">
       <aside className="sidebar">
-        <AboutCard
-          description="QurioSkill helps indivudals and organizations in their journing to upskill and reskill for the digital age."
-        />
+        <div className="sidebar-stack">
+          <AboutCard
+            description="QurioSkill helps individuals and organizations in their journey to upskill and reskill for the digital age."
+          />
+          <WorkshopCard workshops={WORKSHOPS} />
+        </div>
       </aside>
       <main className="main-content">
-      <header className="hero">
-        <h1>QurioSkill Blog</h1>
-        <p className="subtitle">
-          A curated feed of mini learnings related to digital and professional skills.
-        </p>
-      </header>
+        <header className="hero">
+          <h1>QurioSkill Blog</h1>
+          <p className="subtitle">
+            A curated feed of mini learnings related to digital and professional skills.
+          </p>
+        </header>
 
-      {error && <div className="notice error">{error}</div>}
-      {loading && <div className="notice">Loading stories...</div>}
+        {error && <div className="notice error">{error}</div>}
+        {loading && <div className="notice">Loading stories...</div>}
 
-      {!loading && !error && (
-        <>
-          <TagFilter
-            tags={tags}
-            activeTag={activeTag}
-            onChange={setActiveTag}
-          />
-          <div className="search-bar">
-            <label htmlFor="post-search">Search posts</label>
-            <input
-              id="post-search"
-              type="search"
-              className="search-input"
-              placeholder="Search by title, tag, slug, or text..."
-              value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
+        {!loading && !error && (
+          <>
+            <TagFilter
+              tags={tags}
+              activeTag={activeTag}
+              onChange={setActiveTag}
             />
-          </div>
-          <section className="grid">
-            {filteredPosts.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
-          </section>
-          {filteredPosts.length === 0 && (
-            <div className="notice">
-              No posts match this combination of tag and search terms.
+            <div className="search-bar">
+              <label htmlFor="post-search">Search posts</label>
+              <input
+                id="post-search"
+                type="search"
+                className="search-input"
+                placeholder="Search by title, tag, slug, or text..."
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+              />
             </div>
-          )}
-        </>
-      )}
+            <section className="grid">
+              {filteredPosts.map((post) => (
+                <PostCard key={post.id} post={post} />
+              ))}
+            </section>
+            {filteredPosts.length === 0 && (
+              <div className="notice">
+                No posts match this combination of tag and search terms.
+              </div>
+            )}
+          </>
+        )}
       </main>
     </div>
   );
