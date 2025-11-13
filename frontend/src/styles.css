@@ -1,0 +1,182 @@
+:root {
+  font-family: Georgia, "Times New Roman", serif;
+  color: #1d1c1c;
+  background-color: #fefcf7;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #fefcf7;
+}
+
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 3rem;
+}
+
+.hero {
+  border-bottom: 1px solid #d8d2c4;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  color: #746c5f;
+}
+
+.hero h1 {
+  margin: 0.2rem 0 0.6rem;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+}
+
+.subtitle {
+  margin: 0;
+  color: #4d473f;
+  line-height: 1.6;
+}
+
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.pill {
+  border: 1px solid #c7c0b1;
+  border-radius: 999px;
+  padding: 0.25rem 0.9rem;
+  background: transparent;
+  color: #1d1c1c;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.pill.active {
+  background: #1d1c1c;
+  color: #fffaf1;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.post {
+  border-bottom: 1px solid #e5dccd;
+  padding-bottom: 1.5rem;
+}
+
+.post:last-child {
+  border-bottom: none;
+}
+
+.post-meta {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #6d6559;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.post h2 {
+  margin: 0.3rem 0 0.6rem;
+  font-size: 1.7rem;
+}
+
+.post p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.post-tags {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  font-size: 0.85rem;
+  color: #746c5f;
+}
+
+.text-link {
+  margin-top: 0.9rem;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #1f4b99;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+.article-page {
+  max-width: 760px;
+}
+
+.article-header {
+  border-bottom: 1px solid #e5dccd;
+  padding-bottom: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.article-meta {
+  margin: 0 0 0.4rem;
+  font-size: 0.9rem;
+  color: #6d6559;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.article-body {
+  line-height: 1.7;
+}
+
+.article-body :is(p, ul, ol) {
+  margin: 0 0 1rem;
+}
+
+.article-body ul,
+.article-body ol {
+  padding-left: 1.2rem;
+}
+
+.article-body h2,
+.article-body h3 {
+  margin: 1.4rem 0 0.6rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.notice {
+  border: 1px solid #ded6c6;
+  padding: 0.85rem 1rem;
+  margin: 1.5rem 0;
+  color: #4d473f;
+}
+
+.notice.error {
+  border-color: #d38a7c;
+  color: #8f2c1f;
+}
