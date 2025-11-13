@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
+import AboutCard from "../components/AboutCard.jsx";
 import { API_BASE } from "../config.js";
 
 export default function PostPage() {
@@ -33,7 +34,13 @@ export default function PostPage() {
   }, [slug]);
 
   return (
-    <div className="page article-page">
+    <div className="page page-with-sidebar article-page">
+      <aside className="sidebar">
+        <AboutCard
+          description="QurioSkill helps indivudals and organizations in their journing to upskill and reskill for the digital age."
+        />
+      </aside>
+      <main className="main-content">
       <Link className="text-link back-link" to="/">
         ← Back to all posts
       </Link>
@@ -62,6 +69,7 @@ export default function PostPage() {
           />
         </article>
       )}
+      </main>
     </div>
   );
 }

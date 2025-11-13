@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import PostCard from "../components/PostCard.jsx";
 import TagFilter from "../components/TagFilter.jsx";
+import AboutCard from "../components/AboutCard.jsx";
 import { API_BASE } from "../config.js";
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
   const [tags, setTags] = useState([]);
   const [activeTag, setActiveTag] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -15,7 +17,7 @@ export default function HomePage() {
       try {
         setLoading(true);
         const [postsRes, tagsRes] = await Promise.all([
-          fetch(`${API_BASE}/api/posts`),
+          fetch(`${API_BASE}/api/posts?include=markdown`),
           fetch(`${API_BASE}/api/tags`)
         ]);
         if (!postsRes.ok || !tagsRes.ok) {
@@ -33,20 +35,49 @@ export default function HomePage() {
   }, []);
 
   const filteredPosts = useMemo(() => {
-    if (activeTag === "All") return posts;
-    return posts.filter((post) =>
-      post.tags.some((tag) => tag.toLowerCase() === activeTag.toLowerCase())
-    );
-  }, [activeTag, posts]);
+    const activeTagLower = activeTag.toLowerCase();
+    const tokens = searchQuery
+      .trim()
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(Boolean);
+
+    return posts.filter((post) => {
+      const matchesTag =
+        activeTag === "All" ||
+        post.tags.some((tag) => tag.toLowerCase() === activeTagLower);
+      if (!matchesTag) return false;
+      if (tokens.length === 0) return true;
+
+      const searchableText = [
+        post.title,
+        post.excerpt,
+        post.author,
+        post.slug,
+        post.read_time,
+        post.tags.join(" "),
+        post.markdown
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      return tokens.every((token) => searchableText.includes(token));
+    });
+  }, [activeTag, posts, searchQuery]);
 
   return (
-    <div className="page">
+    <div className="page page-with-sidebar">
+      <aside className="sidebar">
+        <AboutCard
+          description="QurioSkill helps indivudals and organizations in their journing to upskill and reskill for the digital age."
+        />
+      </aside>
+      <main className="main-content">
       <header className="hero">
-        <p className="eyebrow">QurioSkill Insights</p>
-        <h1>Learning Labs for Teams Who Need Momentum</h1>
+        <h1>QurioSkill Blog</h1>
         <p className="subtitle">
-          A curated feed of frameworks, facilitation tips, and simulation ideas
-          from the QurioSkill coaching desk.
+          A curated feed of mini learnings related to digital and professional skills.
         </p>
       </header>
 
@@ -60,16 +91,30 @@ export default function HomePage() {
             activeTag={activeTag}
             onChange={setActiveTag}
           />
+          <div className="search-bar">
+            <label htmlFor="post-search">Search posts</label>
+            <input
+              id="post-search"
+              type="search"
+              className="search-input"
+              placeholder="Search by title, tag, slug, or text..."
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+            />
+          </div>
           <section className="grid">
             {filteredPosts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
           </section>
           {filteredPosts.length === 0 && (
-            <div className="notice">No posts yet for this tag.</div>
+            <div className="notice">
+              No posts match this combination of tag and search terms.
+            </div>
           )}
         </>
       )}
+      </main>
     </div>
   );
 }

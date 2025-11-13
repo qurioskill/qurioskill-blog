@@ -90,50 +90,67 @@ class Post:
 POSTS: List[Post] = [
     Post(
         id=1,
-        title="Designing Impactful Learning Journeys",
-        author="Asha Menon",
-        slug="designing-impactful-learning-journeys",
-        tags=["Learning Design", "Strategy"],
+        title="Hello World in Python",
+        author="Madhav Malhotra",
+        slug="hello-world-in-python",
+        tags=["Software Programming"],
         read_time="6 min",
         excerpt="How to translate organizational goals into learner-centric pathways that stay flexible and measurable.",
-        content_file="designing-impactful-learning-journeys.md",
+        content_file="hello-world-in-python.md",
     ),
     Post(
         id=2,
-        title="Coaching Skills For Hybrid Teams",
-        author="Ravi Kulkarni",
-        slug="coaching-skills-for-hybrid-teams",
-        tags=["Coaching", "Remote Work"],
+        title="Why Programming is Fun",
+        author="Madhav Malhotra",
+        slug="why-programming-is-fun",
+        tags=["Software Programming"],
         read_time="4 min",
         excerpt="A practical framework to help managers blend async feedback with live facilitation moments.",
-        content_file="coaching-skills-for-hybrid-teams.md",
+        content_file="why-programming-is-fun.md",
     ),
     Post(
         id=3,
-        title="Micro-simulations That Stick",
+        title="What is Programming?",
         author="Tara Venkatesh",
-        slug="micro-simulations-that-stick",
-        tags=["Simulations", "Learning Design"],
+        slug="what-is-programming",
+        tags=["Software Programming"],
         read_time="5 min",
         excerpt="Micro-simulations generate repetition without boredom. Here's how QurioSkill deploys them inside LMS workflows.",
-        content_file="micro-simulations-that-stick.md",
+        content_file="what-is-programming.md",
     ),
 ]
 
 
-def _serialize_post(post: Post) -> Dict:
+def _read_post_markdown(post: Post) -> Optional[str]:
+    md_path = POSTS_DIR / post.content_file
+    if not md_path.exists():
+        return None
+    return md_path.read_text(encoding="utf-8")
+
+
+def _serialize_post(post: Post, include_markdown: bool = False) -> Dict:
     data = asdict(post)
-    data.pop("content_file", None)
+    content_file = data.pop("content_file", None)
+    if include_markdown and content_file:
+        markdown = _read_post_markdown(post)
+        if markdown is not None:
+            data["markdown"] = markdown
     return data
 
 
-def _serialize_posts(filtered_posts: List[Post]):
-    return [_serialize_post(post) for post in filtered_posts]
+def _serialize_posts(filtered_posts: List[Post], include_markdown: bool = False):
+    return [_serialize_post(post, include_markdown) for post in filtered_posts]
 
 
 def _find_post_by_slug(slug: str) -> Optional[Post]:
     slug = slug.lower()
     return next((post for post in POSTS if post.slug.lower() == slug), None)
+
+
+def _parse_list_arg(value: Optional[str]) -> Set[str]:
+    if not value:
+        return set()
+    return {part.strip().lower() for part in value.split(",") if part.strip()}
 
 
 @app.route("/api/posts")
@@ -143,7 +160,9 @@ def get_posts():
         filtered = [post for post in POSTS if tag_filter in (tag.lower() for tag in post.tags)]
     else:
         filtered = POSTS
-    return jsonify(_serialize_posts(filtered))
+    include_params = _parse_list_arg(request.args.get("include"))
+    include_markdown = {"markdown", "content"}.intersection(include_params)
+    return jsonify(_serialize_posts(filtered, bool(include_markdown)))
 
 
 @app.route("/api/tags")
@@ -157,13 +176,13 @@ def get_post(slug: str):
     post = _find_post_by_slug(slug)
     if not post:
         abort(404)
-    md_path = POSTS_DIR / post.content_file
-    if not md_path.exists():
+    markdown = _read_post_markdown(post)
+    if markdown is None:
         abort(404)
     return jsonify(
         {
             "post": _serialize_post(post),
-            "markdown": md_path.read_text(encoding="utf-8"),
+            "markdown": markdown,
         }
     )
 
