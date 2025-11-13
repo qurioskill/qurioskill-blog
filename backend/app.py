@@ -19,8 +19,20 @@ if _allowed_origins_env.strip() == "*":
     _cors_origins = "*"
 else:
     _cors_origins = [
-        origin.strip() for origin in _allowed_origins_env.split(",") if origin.strip()
+        origin.strip().rstrip("/")
+        for origin in _allowed_origins_env.split(",")
+        if origin.strip()
     ]
+
+    # Always include localhost origins so dev tools can hit Render when needed.
+    _cors_origins.extend(
+        [
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+        ]
+    )
 
 CORS(app, resources={r"/api/*": {"origins": _cors_origins}})
 
