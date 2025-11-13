@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
-import AboutCard from "../components/AboutCard.jsx";
 import WorkshopCard from "../components/WorkshopCard.jsx";
-import { WORKSHOPS } from "../data/workshops.js";
+import { HOME_WORKSHOPS } from "../data/workshops.js";
 import { API_BASE } from "../config.js";
 
 export default function PostPage() {
@@ -39,10 +38,7 @@ export default function PostPage() {
     <div className="page page-with-sidebar article-page">
       <aside className="sidebar">
         <div className="sidebar-stack">
-          <AboutCard
-            description="QurioSkill helps individuals and organizations in their journey to upskill and reskill for the digital age."
-          />
-          <WorkshopCard workshops={WORKSHOPS} />
+          <WorkshopCard workshops={HOME_WORKSHOPS} />
         </div>
       </aside>
       <main className="main-content">
