@@ -45,7 +45,7 @@ The Vite dev server proxies `/api/*` requests to Flask (see `vite.config.js`), s
 2. In Render, create a **Web Service**, choose **Docker** as the environment, and point it to this repository.
 3. Render will build the image automatically using `Dockerfile`. The multi-stage build installs the backend, builds the React app, and copies the static assets for Flask to serve.
 4. Set the **Environment Variables**:
-   - `BLOG_ALLOWED_ORIGINS=https://your-production-domain` (comma-separated list, **no trailing slashes**). This keeps CORS tight in production; the app also auto-allows localhost for debugging. Leaving this unset falls back to `*`.
+   - `BLOG_ALLOWED_ORIGINS=https://your-production-domain` (comma-separated list, **no trailing slashes**). The backend normalizes entries and still allows localhost for debugging. Leaving this unset falls back to `*`.
    - Optionally set `WORKERS=4` (or whatever fits the instance size) to control the number of Gunicorn workers.
 5. The default start command already runs `gunicorn --bind 0.0.0.0:$PORT --workers=${WORKERS:-3} app:app`, so you can leave Render’s start command blank or override it if you want different flags.
 6. Deploy — Render health checks should succeed once Gunicorn starts listening on the assigned port.

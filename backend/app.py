@@ -17,24 +17,63 @@ app = Flask(
 _allowed_origins_env = os.environ.get("BLOG_ALLOWED_ORIGINS", "*")
 if _allowed_origins_env.strip() == "*":
     _cors_origins = "*"
+    _allowed_origin_set: Optional[set[str]] = None
 else:
-    _cors_origins = [
+    normalized_origins = {
         origin.strip().rstrip("/")
         for origin in _allowed_origins_env.split(",")
         if origin.strip()
-    ]
-
-    # Always include localhost origins so dev tools can hit Render when needed.
-    _cors_origins.extend(
-        [
+    }
+    normalized_origins.update(
+        {
             "http://localhost:5173",
             "http://127.0.0.1:5173",
             "http://localhost:3000",
             "http://127.0.0.1:3000",
-        ]
+        }
     )
+    _allowed_origin_set = normalized_origins
+    _cors_origins = list(normalized_origins)
 
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(
+    app,
+    resources={r"/api/*": {"origins": _cors_origins}},
+)
+
+
+def _origin_allowed(origin: Optional[str]) -> bool:
+    if _cors_origins == "*":
+        return True
+    if not origin or not _allowed_origin_set:
+        return False
+    return origin.rstrip("/") in _allowed_origin_set
+
+
+def _origin_header_value(origin: Optional[str]) -> str:
+    if _cors_origins == "*":
+        return "*" if not origin else origin.rstrip("/")
+    assert origin is not None
+    return origin.rstrip("/")
+
+
+@app.after_request
+def _apply_cors_headers(response):
+    origin = request.headers.get("Origin")
+    if _origin_allowed(origin):
+        response.headers["Access-Control-Allow-Origin"] = _origin_header_value(origin)
+        response.headers["Access-Control-Allow-Methods"] = "GET,OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = request.headers.get(
+            "Access-Control-Request-Headers", "Authorization,Content-Type"
+        )
+        existing_vary = response.headers.get("Vary")
+        response.headers["Vary"] = "Origin" if not existing_vary else f"{existing_vary}, Origin"
+    return response
+
+
+@app.route("/api", methods=["OPTIONS"])
+@app.route("/api/<path:_unused>", methods=["OPTIONS"])
+def _cors_preflight(_unused: Optional[str] = None):
+    return ("", 204)
 
 POSTS_DIR = Path(__file__).resolve().parent / "posts"
 
