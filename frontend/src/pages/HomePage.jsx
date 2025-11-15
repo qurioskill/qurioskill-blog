@@ -4,23 +4,27 @@ import PostCard from "../components/PostCard.jsx";
 import { API_BASE } from "../config.js";
 
 const HERO_POINTS = [
-  "Micro-simulations tailored to your tools",
-  "Blended facilitation for hybrid teams",
-  "Measurement baked into every sprint"
+  "Live, hands-on workshops for real-world skills you can use immediately",
+  "Designed for busy learners with short, practical sessions that fit any schedules",
+  "Problem centered learning approach, where learners solve problems while practicing the skills they are learning"
 ];
 
 const ABOUT_PILLARS = [
   {
-    title: "Cohort-based fuel",
-    copy: "We design every sprint so professionals learn beside peers, share proof-of-work, and keep showing up for one another."
+    title: "Cohort Based Learning",
+    copy: "Engage in live sessions in a cohort-based environment that fosters collaboration and accountability."
   },
   {
-    title: "Practice over presentations",
-    copy: "Weekly micro-simulations, async nudges, and live labs mean every module ends with action, not just insights."
+    title: "Problem Focused Practice",
+    copy: "Learn by solving real problems with guided support that builds practical, job-ready skills."
   },
   {
-    title: "Momentum you can measure",
-    copy: "Stories, dashboards, and office-hour recordings help sponsors see adoption without chasing status updates."
+    title: "Affordable",
+    copy: "We are built on a belief that skill-building should be accessible, not expensive."
+  },
+    {
+    title: "Contextualized Learning",
+    copy: "Learn through sessions tailored to the needs of each learner and organization, ensuring relevance, clarity, and real-world fit."
   }
 ];
 
@@ -47,30 +51,23 @@ const TEAM_MEMBERS = [
 
 const SOLUTIONS = [
   {
-    title: "Capability Sprints",
+    title: "Digital Skills for a Changing Workforce",
     description:
-      "Rapid pathways that turn strategic skill gaps into 4–6 week learning journeys with nudges, practice, and coaching.",
-    highlights: ["Sprint architecture", "Manager toolkits", "Live retros"]
+      "Equip yourself or your team with the technical confidence needed in a modern, tech-driven workplace.",
+    highlights: ["Programming Fundamentals", "Applied AI & Automation", "Digital Tools Proficiency", "Web & Technical Foundations"]
   },
   {
-    title: "Micro-simulations",
+    title: "Professional Skills for High-Performance Work",
     description:
-      "Scenario libraries that let teams practice decisions in under 10 minutes, straight from Slack, Teams, or your LMS.",
-    highlights: ["Async practice loops", "Immediate feedback", "Reusable assets"]
-  },
-  {
-    title: "Enablement Analytics",
-    description:
-      "Story-driven dashboards that show adoption, sentiment, and readouts leaders can act on within one exec meeting.",
-    highlights: ["Narrative reporting", "Behavioral signals", "Impact briefs"]
+      "Strengthen the human skills that every role depends on—critical thinking, communication, problem-solving, and more..",
+    highlights: ["Critical Thinking & Analytical Reasoning", "Structured Communication & Writing", "Collaboration & Inquiry-Based Learning", "Decision-Making & Problem Framing"]
   }
 ];
 
 const METRICS = [
-  { label: "Learner NPS", value: "+71" },
-  { label: "Launch speed", value: "3 weeks" },
-  { label: "Practice completions", value: "82%" },
-  { label: "Cities served", value: "17" }
+  { label: "Learners Served", value: "500+" },
+  { label: "Average Rating", value: "4.8/5" },
+  { label: "Countries Served", value: "5+" },
 ];
 
 const TESTIMONIALS = [
@@ -120,15 +117,17 @@ export default function HomePage() {
     <div className="landing">
       <section className="landing-hero" id="top">
         <div className="hero-copy">
-          <p className="eyebrow">Upskilling studio</p>
-          <h1>Modern learning programs that feel handcrafted.</h1>
+          <p className="eyebrow">Skill Learning Studio</p>
+          <h1>Modern Live Skill Learning Workshops </h1>
           <p className="subtitle">
-            QurioSkill partners with ambitious teams to design snackable pathways, micro-simulations,
-            and live facilitation moments that turn strategy into habit.
+            QurioSkill focuses on providing cohort-based upskilling programs for building digital and professional skills in individuals and organizations.
           </p>
           <div className="hero-cta">
-            <Link className="button-link" to="/#contact">
-              Design my sprint
+            <Link className="button-link" to="/workshops/individuals">
+              For Individuals
+            </Link>
+            <Link className="button-link" to="/workshops/organizations">
+              For Organizations
             </Link>
             <Link className="ghost-button" to="/blog">
               Visit the blog
@@ -145,14 +144,15 @@ export default function HomePage() {
       <section id="about" className="section about-section">
         <div className="about-text">
           <p className="eyebrow">About QurioSkill</p>
-          <h2>Upskilling for professionals, built around shared cohort rituals.</h2>
+          <h2>Upskilling for professionals through live, cohort-based learning and real-world problem-solving.</h2>
           <p>
-            QurioSkill started as a response to teams drowning in slide decks and tool launches with no follow through. We
-            felt professionals needed calmer spaces to experiment, debrief, and keep each other accountable.
+            QurioSkill began as a way to give organizations and individuals a more human learning experience—live, cohort-based, and built around real problem-solving.
           </p>
           <p>
-            Today our studio blends async micro-simulations, live facilitation, and measurement loops so every cohort
-            moves in step—no matter the time zone or experience level.
+            Our live cohorts are built around paying attention to each individual, understanding what works for them, and supporting their growth with challenging, meaningful problems.
+          </p>
+          <p>
+Everything we do is grounded in inclusion, empathy, and the belief that learning should feel human.
           </p>
         </div>
         <div className="about-pillars">
@@ -168,11 +168,12 @@ export default function HomePage() {
       <section id="solutions" className="section">
         <div className="section-header">
           <p className="eyebrow">Solutions</p>
-          <h2>Build pathways with purpose.</h2>
+          <h2>Digital and Professional Skills.</h2>
           <p>
-            From diagnostics to launch, we keep every artifact simple, beautiful, and obsessively learner-centered.
+            QurioSkill delivers high-impact, cohort-based learning experiences designed for today’s fast-changing work environment.
           </p>
         </div>
+        <br></br>
         <div className="card-grid">
           {SOLUTIONS.map((solution) => (
             <article key={solution.title} className="solution-card">
