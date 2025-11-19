@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
-import WorkshopCard from "../components/WorkshopCard.jsx";
-import { HOME_WORKSHOPS } from "../data/workshops.js";
 import { API_BASE } from "../config.js";
+import { usePageMetadata } from "../hooks/usePageMetadata.js";
 
 export default function PostPage() {
   const { slug } = useParams();
@@ -12,6 +11,15 @@ export default function PostPage() {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const metaTitle = useMemo(
+    () => (post ? `${post.title} | QurioSkill Blog` : "QurioSkill Blog | Digital & Professional Skills"),
+    [post]
+  );
+  const metaDescription = useMemo(
+    () => post?.excerpt || "Stories on digital and professional skills from QurioSkill.",
+    [post]
+  );
+  usePageMetadata(metaTitle, metaDescription);
 
   useEffect(() => {
     async function loadPost() {
@@ -35,12 +43,7 @@ export default function PostPage() {
   }, [slug]);
 
   return (
-    <div className="page page-with-sidebar article-page">
-      <aside className="sidebar">
-        <div className="sidebar-stack">
-          <WorkshopCard workshops={HOME_WORKSHOPS} />
-        </div>
-      </aside>
+    <div className="page page-wide article-page">
       <main className="main-content">
         <Link className="text-link back-link" to="/">
           ← Back to all posts

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Logo from "../assets/logo.jpg";
 
 const NAV_LINKS = [
   { label: "About", href: "/#about" },
@@ -14,7 +15,8 @@ export default function NavBar() {
   return (
     <header className="site-nav">
       <Link className="brand-mark" to="/">
-        QurioSkill
+        <img className="brand-logo" src={Logo} alt="QurioSkill logo" />
+        <span className="brand-text">QurioSkill</span>
       </Link>
       <nav className="nav-links">
         {NAV_LINKS.map((link) => (

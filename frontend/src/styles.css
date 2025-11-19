@@ -41,11 +41,29 @@ a {
 }
 
 .brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   font-weight: 700;
   font-size: 1.2rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
+  color: #1d1c1c;
+}
+
+.brand-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid #e7dcc8;
+  object-fit: cover;
+  background: #fefcf7;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.brand-text {
+  line-height: 1;
 }
 
 .nav-links {
@@ -86,6 +104,12 @@ a {
 
 .footer-brand {
   max-width: 320px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .footer-copy {
@@ -141,10 +165,77 @@ a {
   max-width: 860px;
 }
 
+.page.page-wide {
+  max-width: 1280px;
+  width: 100%;
+}
+
+.workshops-page {
+  max-width: 1280px;
+  width: 100%;
+}
+
 .page-with-sidebar {
   display: flex;
   gap: 2rem;
   max-width: 1180px;
+}
+
+.policy-page h1 {
+  margin: 0 0 1rem;
+}
+
+.policy-page p {
+  color: #4d473f;
+  line-height: 1.6;
+  margin: 0 0 0.9rem;
+}
+
+.policy-page .policy-list {
+  list-style: decimal;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1.25rem 0 0;
+}
+
+.policy-page h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.policy-page .policy-sublist {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.policy-page .policy-sublist.nested {
+  padding-left: 1.25rem;
+}
+
+.policy-page .policy-sublist strong {
+  margin-right: 0.35rem;
+}
+
+.policy-page .policy-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+.policy-page .policy-links a {
+  color: #1f4b99;
+  text-decoration: none;
+}
+
+.policy-page .policy-links a:hover {
+  text-decoration: underline;
 }
 
 .sidebar {
@@ -438,7 +529,7 @@ a {
 }
 
 .workshops-page {
-  max-width: 1180px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 3rem clamp(1.25rem, 4vw, 3rem) 4rem;
 }
@@ -521,6 +612,72 @@ a {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
+}
+
+.org-tracks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.org-tracks.horizontal {
+  grid-template-columns: 1fr 1fr;
+}
+
+.org-track-card {
+  border: 1px solid #e7dcc8;
+  border-radius: 16px;
+  padding: 1.25rem;
+  background: #fffaf2;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.org-track-card h2 {
+  font-size: 1.45rem;
+  margin: 0.2rem 0 0.35rem;
+  color: #1d1c1c;
+}
+
+.org-track-card .eyebrow {
+  color: #1f4b99;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+}
+
+.org-workshop-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.org-workshop-idea {
+  border: 1px solid #eadfcb;
+  border-radius: 12px;
+  padding: 1rem;
+  background: #ffffff;
+}
+
+.org-workshop-idea ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+  color: #4d473f;
+}
+
+.topic-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.idea-list {
+  margin: 0.75rem 0 0;
+  padding-left: 1.2rem;
+  color: #4d473f;
+  display: grid;
+  gap: 0.35rem;
 }
 
 .workshop-detail-card {

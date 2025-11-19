@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PostCard from "../components/PostCard.jsx";
 import { API_BASE } from "../config.js";
+import { usePageMetadata } from "../hooks/usePageMetadata.js";
 
 const HERO_POINTS = [
   "Live, hands-on workshops for real-world skills you can use immediately",
@@ -94,6 +95,10 @@ const TESTIMONIALS = [
 export default function HomePage() {
   const [recentPosts, setRecentPosts] = useState([]);
   const [loadingPosts, setLoadingPosts] = useState(true);
+  usePageMetadata(
+    "QurioSkill | Canadian Skill Training in Digital & Professional Skills",
+    "Cohort-based Canadian workshops that build digital and professional skills for individuals and organizations."
+  );
 
   useEffect(() => {
     async function fetchPosts() {

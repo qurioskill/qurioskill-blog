@@ -17,7 +17,7 @@ const INDIVIDUAL_WORKSHOP_GROUPS = [
         details:
           "Translate your wins into a narrative that recruiters and leaders can follow without a slide deck.",
         outcomes: ["Story spine kit", "Portfolio outline", "Peer review circle"],
-        link: "https://qurioskill.ca/workshops/career-story"
+        link: "/workshops/individuals"
       },
       {
         id: "practice-lab",
@@ -30,7 +30,7 @@ const INDIVIDUAL_WORKSHOP_GROUPS = [
         details:
           "Drop into monthly simulations on negotiation, feedback, and facilitation with guided debriefs.",
         outcomes: ["Micro-sim recordings", "Coach office hours", "Action plan template"],
-        link: "https://qurioskill.ca/workshops/practice-lab"
+        link: "/workshops/individuals"
       }
     ]
   },
@@ -52,7 +52,7 @@ const INDIVIDUAL_WORKSHOP_GROUPS = [
         details:
           "Learn prompt ladders, safe experimentation guidelines, and co-pilot workflows for personal productivity.",
         outcomes: ["Prompt ladder", "Experiment tracker", "Safety checklist"],
-        link: "https://qurioskill.ca/workshops/ai-playground"
+        link: "/workshops/individuals"
       },
       {
         id: "automation-personal",
@@ -65,7 +65,7 @@ const INDIVIDUAL_WORKSHOP_GROUPS = [
         details:
           "Ship one automated workflow using no-code tools and leave with a maintenance plan you can run solo.",
         outcomes: ["Automation storyboard", "Tool comparison", "Maintenance checklist"],
-        link: "https://qurioskill.ca/workshops/automation-build"
+        link: "/workshops/individuals"
       }
     ]
   }
@@ -88,7 +88,7 @@ const ORGANIZATION_WORKSHOP_GROUPS = [
         details:
           "Pair up to rethink one workflow using no-code automation, AI co-pilots, and lightweight measurement templates.",
         outcomes: ["Automation storyboard", "AI prompt vault", "Adoption playbook"],
-        link: "https://qurioskill.ca/workshops/automation"
+        link: "/workshops/organizations"
       },
       {
         id: "ai-primer",
@@ -99,7 +99,7 @@ const ORGANIZATION_WORKSHOP_GROUPS = [
         details:
           "Ground your team in responsible AI usage with practical guardrails, prompt ladders, and use-case prioritization canvases.",
         outcomes: ["AI readiness scorecard", "Prompt ladder", "Use-case backlog"],
-        link: "https://qurioskill.ca/workshops/ai-primer"
+        link: "/workshops/organizations"
       },
       {
         id: "data-story-studio",
@@ -110,7 +110,7 @@ const ORGANIZATION_WORKSHOP_GROUPS = [
         details:
           "Transform messy dashboards into narratives stakeholders remember by practicing with our micro-sim scenario stack.",
         outcomes: ["Story spine templates", "Visualization checklist", "Exec readout kit"],
-        link: "https://qurioskill.ca/workshops/data-story"
+        link: "/workshops/organizations"
       }
     ]
   },
@@ -130,7 +130,7 @@ const ORGANIZATION_WORKSHOP_GROUPS = [
         details:
           "Practice designing and leading hybrid sessions with real-time coaching, observation rubrics, and async micro-sims.",
         outcomes: ["Facilitation rubric", "Session storyboard", "Feedback loop"],
-        link: "https://qurioskill.ca/workshops/facilitation-lab"
+        link: "/workshops/organizations"
       },
       {
         id: "coaching-1-1",
@@ -141,7 +141,7 @@ const ORGANIZATION_WORKSHOP_GROUPS = [
         details:
           "Learn the CURIOS coaching loop, practice with peers, and leave with scripts to unblock sticky conversations.",
         outcomes: ["Conversation scripts", "CURIOS cheat sheet", "Nudge series"],
-        link: "https://qurioskill.ca/workshops/coaching"
+        link: "/workshops/organizations"
       },
       {
         id: "storytelling-customers",
@@ -152,7 +152,7 @@ const ORGANIZATION_WORKSHOP_GROUPS = [
         details:
           "Enable customer success and sales partners to frame value stories that feel human, concise, and measurable.",
         outcomes: ["Story spine", "Chorus-ready scripts", "Call recap template"],
-        link: "https://qurioskill.ca/workshops/customer-story"
+        link: "/workshops/organizations"
       }
     ]
   }

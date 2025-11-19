@@ -7,6 +7,7 @@ import {
   INDIVIDUAL_PREVIEW_WORKSHOPS,
   ORGANIZATION_PREVIEW_WORKSHOPS
 } from "../data/workshops.js";
+import { usePageMetadata } from "../hooks/usePageMetadata.js";
 
 function flattenIndividualWorkshops() {
   return INDIVIDUAL_WORKSHOPS.flatMap((group) =>
@@ -37,9 +38,9 @@ function IndividualWorkshopModal({ workshop, onClose }) {
           ))}
         </ul>
         <div className="modal-actions">
-          <a className="button-link" href={workshop.link} target="_blank" rel="noreferrer">
-            Register now
-          </a>
+          <Link className="button-link" to={workshop.link}>
+            View workshop
+          </Link>
           <button type="button" className="ghost-button" onClick={onClose}>
             Close
           </button>
@@ -53,6 +54,10 @@ export function IndividualWorkshopsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTag, setActiveTag] = useState("All");
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
+  usePageMetadata(
+    "QurioSkill | Skill Training Workshops for Individuals",
+    "Cohort-based Canadian workshops for individuals to build digital and professional skills with guided practice."
+  );
 
   const allWorkshops = useMemo(() => flattenIndividualWorkshops(), []);
 
@@ -151,9 +156,9 @@ export function IndividualWorkshopsPage() {
               <button type="button" className="ghost-button" onClick={() => setSelectedWorkshop(workshop)}>
                 More detail
               </button>
-              <a className="button-link" href={workshop.link} target="_blank" rel="noreferrer">
+              <Link className="button-link" to={workshop.link}>
                 Register
-              </a>
+              </Link>
             </div>
           </article>
         ))}
@@ -176,6 +181,10 @@ function WorkshopsPageTemplate({
   previewWorkshops,
   ctaHeading
 }) {
+  usePageMetadata(
+    `${title} | QurioSkill`,
+    `${subtitle} Discover cohort-based digital and professional skill training with QurioSkill.`
+  );
   return (
     <div className="page workshops-page">
       <header className="hero">
@@ -222,9 +231,9 @@ function WorkshopsPageTemplate({
                 </ul>
                 <div className="workshop-actions">
                   <span className="price-badge large">{workshop.price}</span>
-                  <a className="button-link" href={workshop.link} target="_blank" rel="noreferrer">
+                  <Link className="button-link" to={workshop.link}>
                     More info
-                  </a>
+                  </Link>
                 </div>
               </article>
             ))}
@@ -255,19 +264,95 @@ function WorkshopsPageTemplate({
 }
 
 export function OrganizationWorkshopsPage() {
+  const digitalGroup = ORGANIZATION_WORKSHOPS.find((group) => group.id === "digital-skills");
+  const professionalGroup = ORGANIZATION_WORKSHOPS.find((group) => group.id === "professional-skills");
+
   return (
-    <WorkshopsPageTemplate
-      eyebrow="For organizations"
-      title="Tailored skill training for your teams."
-      subtitle="Digital and professional skill labs customized to your tools, culture, and strategic moments."
-      expectations={[
-        "Discovery sessions to shape digital + professional skill journeys that match your org’s road map.",
-        "Live facilitation paired with async simulations that meet employees inside Slack, Teams, or your LMS.",
-        "Measurement readouts, playbooks, and office hours tailored to your leaders’ decision cycles."
-      ]}
-      groups={ORGANIZATION_WORKSHOPS}
-      previewWorkshops={ORGANIZATION_PREVIEW_WORKSHOPS}
-      ctaHeading="Let’s tailor a sprint to your teams’ needs."
-    />
+    <div className="page workshops-page">
+      <header className="hero">
+        <p className="eyebrow">For organizations</p>
+        <h1>Tailored skill training for your teams.</h1>
+        <p className="subtitle">
+          Digital and professional skill labs customized to your tools, culture, and strategic moments—built with an exploratory
+          phase so we match the skills you actually need.
+        </p>
+      </header>
+
+      <section className="workshops-overview">
+        <div className="workshop-intro">
+          <h2>How we start: exploratory phase</h2>
+          <ul>
+            <li>Discovery interviews with team leads to map roles, tools, and the moments that matter.</li>
+            <li>Skill gap snapshot across digital and professional capabilities (automation, AI, facilitation, storytelling).</li>
+            <li>Co-designed sprint plan: live labs + async micro-sims, with measurement readouts your leaders can use.</li>
+          </ul>
+          <div className="cta-actions">
+            <a className="button-link" href="mailto:hello@qurioskill.ca">
+              Book an exploratory call
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="org-tracks horizontal">
+        {digitalGroup && (
+          <div className="org-track-card">
+            <p className="eyebrow">Digital skills</p>
+            <h2>{digitalGroup.heading}</h2>
+            <p>{digitalGroup.description}</p>
+            <ul className="idea-list">
+              <li>Prompt engineering for teams</li>
+              <li>Automation jumpstarts and co-pilot workflows</li>
+              <li>Data storytelling and analytics for stakeholders</li>
+              <li>Responsible AI and experimentation guardrails</li>
+            </ul>
+            <div className="topic-tags">
+              {digitalGroup.workshops.flatMap((workshop) => workshop.tags || []).slice(0, 8).map((tag, idx) => (
+                <span key={`${tag}-${idx}`} className="tag">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {professionalGroup && (
+          <div className="org-track-card">
+            <p className="eyebrow">Professional skills</p>
+            <h2>{professionalGroup.heading}</h2>
+            <p>{professionalGroup.description}</p>
+            <ul className="idea-list">
+              <li>Facilitation for hybrid teams</li>
+              <li>Structured communication and storytelling</li>
+              <li>Coaching conversations and feedback loops</li>
+              <li>Decision-making and problem framing</li>
+            </ul>
+            <div className="topic-tags">
+              {professionalGroup.workshops.flatMap((workshop) => workshop.tags || []).slice(0, 8).map((tag, idx) => (
+                <span key={`${tag}-${idx}`} className="tag">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
+
+      <section className="workshop-cta-panel">
+        <div>
+          <p className="eyebrow">Ready to explore?</p>
+          <h2>Book a call to chat about your org&apos;s needs.</h2>
+          <p>We’ll review your current tools, goals, and teams to shape the right digital and professional skill mix.</p>
+        </div>
+        <div className="cta-actions">
+          <a className="button-link" href="mailto:hello@qurioskill.ca">
+            Book a call
+          </a>
+          <Link className="ghost-button" to="/blog">
+            See our thinking
+          </Link>
+        </div>
+      </section>
+    </div>
   );
 }

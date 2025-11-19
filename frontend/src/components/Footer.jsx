@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
+import Logo from "../assets/logo.jpg";
 
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="site-footer">
       <div className="footer-brand">
-        <p className="eyebrow">QurioSkill</p>
-        <p className="footer-copy">
-          Snackable learning journeys for digital, professional, and leadership skills.
-        </p>
+        <div className="footer-logo">
+          <img className="brand-logo" src={Logo} alt="QurioSkill logo" />
+          <div>
+            <p className="eyebrow">QurioSkill</p>
+            <p className="footer-copy">
+              Snackable learning journeys for digital, professional, and leadership skills.
+            </p>
+          </div>
+        </div>
       </div>
       <div className="footer-grid">
         <div>
@@ -35,9 +41,16 @@ export default function Footer() {
               <Link to="/blog">Blog</Link>
             </li>
             <li>
-              <a href="https://qurioskill.ca" target="_blank" rel="noreferrer">
-                Main site
-              </a>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/privacy">Privacy Policy</Link>
+            </li>
+            <li>
+              <Link to="/terms">Terms and Conditions</Link>
+            </li>
+            <li>
+              <Link to="/code-of-conduct">Community Code of Conduct</Link>
             </li>
             <li>
               <a href="mailto:hello@qurioskill.ca">hello@qurioskill.ca</a>

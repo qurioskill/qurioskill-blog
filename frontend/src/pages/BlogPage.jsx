@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import PostCard from "../components/PostCard.jsx";
 import TagFilter from "../components/TagFilter.jsx";
-import WorkshopCard from "../components/WorkshopCard.jsx";
-import { HOME_WORKSHOPS } from "../data/workshops.js";
 import { API_BASE } from "../config.js";
+import { usePageMetadata } from "../hooks/usePageMetadata.js";
 
 export default function BlogPage() {
   const [posts, setPosts] = useState([]);
@@ -12,6 +11,10 @@ export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  usePageMetadata(
+    "QurioSkill Blog | Digital & Professional Skills Stories",
+    "Insights, stories, and mini learnings on digital, professional, and leadership skills from the QurioSkill team."
+  );
 
   useEffect(() => {
     async function loadData() {
@@ -68,12 +71,7 @@ export default function BlogPage() {
   }, [activeTag, posts, searchQuery]);
 
   return (
-    <div className="page page-with-sidebar">
-      <aside className="sidebar">
-        <div className="sidebar-stack">
-          <WorkshopCard workshops={HOME_WORKSHOPS} />
-        </div>
-      </aside>
+    <div className="page page-wide">
       <main className="main-content">
         <header className="hero">
           <h1>QurioSkill Blog</h1>
